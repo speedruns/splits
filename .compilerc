@@ -1,0 +1,12 @@
+{
+  "env": {
+    "development": {
+      "application/javascript": {
+        "passthrough": true
+      },
+      "text/sass": {
+        "includePaths": ["app/style"]
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./lib/vue.js"></script>
+    <link rel="stylesheet" href="./app/style/base.scss">
+  </head>
+
+  <body>
+    <div id="wrap">
+      <template v-for="t in things">
+        <h1>{{ t }}</h1>
+      </template>
+    </div>
+  </body>
+
+  <script>
+    let vm = new Vue({
+      el: '#wrap',
+      data: {
+        things: ['yeah', '1', '2']
+      }
+    })
+  </script>
+</html>
+
