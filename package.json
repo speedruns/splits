@@ -2,9 +2,7 @@
   "name": "splits",
   "version": "0.1.0",
   "main": "main.js",
-  "dependencies": {
-    "vue": "^2.2.6"
-  },
+  "dependencies": {},
   "devDependencies": {
     "electron-compile": "^6.3.0",
     "electron-compilers": "^5.7.0"

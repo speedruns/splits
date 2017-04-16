@@ -6,19 +6,27 @@
     <script src="./lib/sprintf.js"></script>
     <script src="./lib/mousetrap.js"></script>
 
+    <script src="./src/core/event_bus.js"></script>
+    <script src="./src/core/timer.js"></script>
+    <script src="./src/core/segment.js"></script>
+    <script src="./src/core/run.js"></script>
+
     <script src="./formatters/timer_formatter.js"></script>
-    <script src="./src/timer.js"></script>
-    <script src="./src/segment.js"></script>
-    <script src="./src/splits.js"></script>
     <link rel="stylesheet" href="./style/base.scss">
   </head>
 
   <body>
     <div id="wrap">
-      <h1>{ timer.elapsed_time | time }</h1>
+      <div class="timer">
+        <span class="time">{ timer.elapsed_time | time }</span>
+        <div class="clear"></div>
+      </div>
 
-      <div rv-each-segment="segments">
-        <p>{ segment.elapsed_time | time }</p>
+      <div class="segments">
+        <div rv-each-segment="segments" class="segment">
+          <span class="segment-name">{ segment.name }</span>
+          <span class="segment-time">{ segment.elapsed_time | time }</span>
+        </div>
       </div>
 
       <h2 rv-if="running">RUNNING</h2>
@@ -27,16 +35,18 @@
 
   <script>
     const $ = document.querySelectorAll.bind(document);
-    let splits = new Splits(new Timer());
-    splits.add_segment();
-    splits.add_segment();
-    splits.add_segment();
+    let run = new Run();
+    run.add_segment('Split 1');
+    run.add_segment('Split 2');
+    run.add_segment('Split 3');
 
-    rivets.bind($('#wrap')[0], splits);
+    rivets.bind($('#wrap')[0], run);
 
-    Mousetrap.bind('space', function() { splits.start(); });
-    Mousetrap.bind('s', function() { splits.increment_segment(); });
-    Mousetrap.bind('p', function() { splits.stop(); });
+    Mousetrap.bind('space', function() { run.start_or_resume(); });
+    Mousetrap.bind('p', function() { run.pause(); });
+    Mousetrap.bind('s', function() { run.stop(); });
+    Mousetrap.bind('n', function() { run.split(); });
+    Mousetrap.bind('r', function() { run.reset(); });
   </script>
 </html>
 

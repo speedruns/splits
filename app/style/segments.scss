@@ -1,0 +1,19 @@
+@import "variables.scss";
+
+.segments {
+  width: 100%;
+  padding: $box-padding;
+
+  .segment {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px 0;
+    border-bottom: 1px solid #999;
+
+
+    &:last-child {
+      border: none;
+    }
+  }
+}

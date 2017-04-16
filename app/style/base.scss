@@ -1,5 +1,14 @@
 @import "variables.scss";
 
+/* Box sizing reset */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
 html {
   width: 100%;
   height: 100%;
@@ -15,3 +24,12 @@ body {
   color: $text-color;
   -webkit-app-region: drag;
 }
+
+
+.clear {
+  clear: both;
+}
+
+
+@import "timer.scss";
+@import "segments.scss";
