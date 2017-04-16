@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./lib/rivets.js"></script>
+    <script src="./lib/_.js"></script>
+    <script src="./lib/sprintf.js"></script>
+    <script src="./lib/mousetrap.js"></script>
+
+    <script src="./formatters/timer_formatter.js"></script>
+    <script src="./src/timer.js"></script>
+    <link rel="stylesheet" href="./style/base.scss">
+  </head>
+
+  <body>
+    <div id="wrap">
+      <h1 rv-text="timer.elapsed_time | time"></h1>
+    </div>
+  </body>
+
+  <script>
+    const $ = document.querySelectorAll.bind(document);
+    let timer = new Timer();
+
+    rivets.bind($('#wrap')[0], {
+      timer: timer
+    });
+
+    Mousetrap.bind('space', function() { timer.start(); });
+    Mousetrap.bind('p', function() { timer.stop(); });
+  </script>
+</html>
+
