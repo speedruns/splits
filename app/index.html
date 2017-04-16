@@ -8,25 +8,35 @@
 
     <script src="./formatters/timer_formatter.js"></script>
     <script src="./src/timer.js"></script>
+    <script src="./src/segment.js"></script>
+    <script src="./src/splits.js"></script>
     <link rel="stylesheet" href="./style/base.scss">
   </head>
 
   <body>
     <div id="wrap">
-      <h1 rv-text="timer.elapsed_time | time"></h1>
+      <h1>{ timer.elapsed_time | time }</h1>
+
+      <div rv-each-segment="segments">
+        <p>{ segment.elapsed_time | time }</p>
+      </div>
+
+      <h2 rv-if="running">RUNNING</h2>
     </div>
   </body>
 
   <script>
     const $ = document.querySelectorAll.bind(document);
-    let timer = new Timer();
+    let splits = new Splits(new Timer());
+    splits.add_segment();
+    splits.add_segment();
+    splits.add_segment();
 
-    rivets.bind($('#wrap')[0], {
-      timer: timer
-    });
+    rivets.bind($('#wrap')[0], splits);
 
-    Mousetrap.bind('space', function() { timer.start(); });
-    Mousetrap.bind('p', function() { timer.stop(); });
+    Mousetrap.bind('space', function() { splits.start(); });
+    Mousetrap.bind('s', function() { splits.increment_segment(); });
+    Mousetrap.bind('p', function() { splits.stop(); });
   </script>
 </html>
 
