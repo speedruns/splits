@@ -1,25 +1,33 @@
-const {app, BrowserWindow} = require('electron');
-const path = require('path');
-const url = require('url');
+const {app, BrowserWindow, globalShortcut, ipcMain} = require('electron');
+const path  = require('path');
+const url   = require('url');
 const appRoot = path.join(__dirname);
 
 require('electron-compile').init(appRoot, require.resolve('./main'));
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win;
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600});
+  win = new BrowserWindow({
+    frame: false,
+    resizable: false,
+    width: 320,
+    height: 600,
+    backgroundColor: '#aaa',
+    alwaysOnTop: true
+  });
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(appRoot, 'index.html'),
     protocol: 'file:',
     slashes: true
   }));
 
+  win.openDevTools({ mode: 'detach' });
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -33,7 +41,9 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', function() {
+  createWindow();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -50,6 +60,11 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
+});
+
+app.on('will-quit', () => {
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll();
 });
 
 // In this file you can include the rest of your app's specific main process

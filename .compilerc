@@ -5,7 +5,6 @@
         "passthrough": true
       },
       "text/sass": {
-        "includePaths": ["app/style"]
       }
     }
   }
