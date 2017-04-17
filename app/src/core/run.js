@@ -9,7 +9,7 @@ class Run {
   };
 
   initialize() {
-    this.active_segment = 0;
+    this.segment_idx = 0;
     this.state = Run.STATES.not_started;
     for(let segment of this.segments) {
       segment.reset();
@@ -20,19 +20,39 @@ class Run {
     this.segments.push(new Segment(this, name));
   };
 
+  current_segment() {
+    return this.segments[this.segment_idx];
+  };
+
 
   split() {
-    if(this.active_segment < this.segments.length - 1) {
-      this.active_segment += 1;
+    if(this.timer.state == Run.STATES.not_started) return;
+    if(this.segment_idx < this.segments.length - 1) {
+      this.current_segment().leave(this.timer.elapsed_time);
+      this.segment_idx += 1;
+      this.current_segment().enter(this.timer.elapsed_time);
     } else {
       this.finish();
+    }
+  };
+
+  unsplit() {
+    if(this.timer.state == Run.STATES.not_started) return;
+    if(this.state == Run.STATES.finished) {
+      this.resume();
+    } else if(this.segment_idx > 0) {
+      let curr_seg = this.current_segment();
+      this.segment_idx -= 1;
+      let prev_seg = this.current_segment();
+      prev_seg.add_time(curr_seg.elapsed_time);
+      curr_seg.reset();
     }
   };
 
 
   update(timer_data) {
     if(this.state == Run.STATES.in_progess) {
-      this.segments[this.active_segment].add_time(timer_data.delta);
+      this.current_segment().add_time(timer_data.delta);
     }
   };
 
@@ -40,6 +60,7 @@ class Run {
   start() {
     this.state = Run.STATES.in_progess;
     this.timer.start();
+    this.current_segment().enter(0);
   };
 
   stop() {
@@ -53,17 +74,17 @@ class Run {
   resume() {
     this.state = Run.STATES.in_progess;
     this.timer.resume();
-  }
+  };
 
   reset() {
     this.timer.reset();
     this.initialize();
-  }
+  };
 
   finish() {
     this.stop();
     this.state = Run.STATES.finished;
-  }
+  };
 
 
   start_or_resume() {
@@ -75,8 +96,8 @@ class Run {
   };
 };
 
-Run.STATES = {
+Run.STATES = Object.freeze({
   not_started: 'not started',
   in_progess: 'in progess',
   finished: 'finished'
-}
+});

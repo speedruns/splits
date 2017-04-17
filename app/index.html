@@ -26,7 +26,12 @@
         <div rv-each-segment="segments" class="segment">
           <span class="segment-name">{ segment.name }</span>
           <span class="segment-time">{ segment.elapsed_time | time }</span>
+          <span class="total-time">{ segment.time_in_run < elapsed_time started_at | time }</span>
         </div>
+      </div>
+
+      <div class="segment-details">
+        <span class="best-seg">Best: { current_segment().best_time < segment_idx | time }</span>
       </div>
 
       <h2 rv-if="running">RUNNING</h2>
@@ -47,6 +52,7 @@
     Mousetrap.bind('s', function() { run.stop(); });
     Mousetrap.bind('n', function() { run.split(); });
     Mousetrap.bind('r', function() { run.reset(); });
+    Mousetrap.bind('m', function() { run.unsplit(); });
   </script>
 </html>
 
