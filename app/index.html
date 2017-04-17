@@ -6,11 +6,6 @@
     <script src="./lib/sprintf.js"></script>
     <script src="./lib/mousetrap.js"></script>
 
-    <script src="./src/core/event_bus.js"></script>
-    <script src="./src/core/timer.js"></script>
-    <script src="./src/core/segment.js"></script>
-    <script src="./src/core/run.js"></script>
-
     <script src="./formatters/timer_formatter.js"></script>
     <link rel="stylesheet" href="./style/base.scss">
   </head>
@@ -40,6 +35,9 @@
 
   <script>
     const $ = document.querySelectorAll.bind(document);
+
+    const {Run} = require('../lib');
+
     let run = new Run();
     run.add_segment('Split 1');
     run.add_segment('Split 2');
