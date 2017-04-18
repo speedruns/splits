@@ -14,11 +14,13 @@
       ComponentLoader.load(document, 'timer');
       ComponentLoader.load(document, 'segments');
       ComponentLoader.load(document, 'best_segment');
+      ComponentLoader.load(document, 'run_title');
     </script>
   </head>
 
   <body>
     <div id="wrap">
+      <run-title run="run"></run-title>
       <timer run="run"></timer>
       <segments run="run"></segments>
       <best-segment segment="run.current_segment"></best-segment>

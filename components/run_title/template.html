@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="./run_title.scss">
+
+<template id="title_component">
+  <div class="run-title">
+    <div class="game-name">{ run.game }</div>
+    <div class="category-name">{ run.category }</div>
+    <div class="clear"></div>
+  </div>
+</template>
+
+<script>
+  var title_template_str = document.currentScript.ownerDocument.querySelector('#title_component').innerHTML;
+
+  rivets.components['run-title'] = {
+    template: function() {
+      return title_template_str;
+    },
+
+    initialize: function(el, data) {
+      return data;
+    }
+  };
+</script>
