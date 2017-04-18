@@ -12,22 +12,9 @@
 
   <body>
     <div id="wrap">
-      <div class="timer">
-        <span class="time">{ run.timer.elapsed_time | time }</span>
-        <div class="clear"></div>
-      </div>
-
-      <div class="segments">
-        <div rv-each-segment="run.segments" class="segment">
-          <span class="segment-name">{ segment.name }</span>
-          <span class="segment-time">{ segment.elapsed_time | time }</span>
-          <span class="total-time">{ segment.time_in_run < elapsed_time started_at | call | time }</span>
-        </div>
-      </div>
-
-      <div class="segment-details">
-        <best-time segment="run.current_segment"></best-time>
-      </div>
+      <timer run="run"></timer>
+      <segments run="run"></segments>
+      <best-time segment="run.current_segment"></best-time>
     </div>
   </body>
 
@@ -40,18 +27,40 @@
       run: new Run()
     };
 
-    // rivets.binders['best-segment'] = function(el, segment) {
-    //   let new_value = 0;
-    //   if(segment && segment.best_time) {
-    //     new_value = segment.best_time;
-    //     console.log(segment.best_time);
-    //   }
-    //   el.innerText = new_value;
-    // };
+    rivets.components['timer'] = {
+      template: function() {
+        return '<div class="timer">\
+          <span class="time">{ run.timer.elapsed_time | time }</span>\
+          <div class="clear">\
+        </div>';
+      },
+
+      initialize: function(el, data) {
+        return data || { run: { timer: { elapsed_time: 0 } } };
+      }
+    };
+
+    rivets.components['segments'] = {
+      template: function() {
+        return '<div class="segments">\
+          <div rv-each-segment="run.segments" class="segment">\
+            <span class="segment-name">{ segment.name }</span>\
+            <span class="segment-time">{ segment.elapsed_time | time }</span>\
+            <span class="total-time">{ segment.time_in_run < elapsed_time started_at | call | time }</span>\
+          </div>\
+        </div>';
+      },
+
+      initialize: function(el, data) {
+        return data || { run: { segments: [] } };
+      }
+    };
 
     rivets.components['best-time'] = {
       template: function() {
-        return '<span class="best-seg">Best: { segment.best_time | time }</span>';
+        return '<div class="segment-details">\
+          <span class="best-seg">Best: { segment.best_time | time }</span>\
+        </div>';
       },
 
       initialize: function(el, data) {
