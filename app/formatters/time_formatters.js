@@ -1,4 +1,6 @@
 rivets.formatters.time = function(millis) {
+  if(typeof millis != 'number') return '--';
+
   let cs  = ~~(millis / 10) % 100,
       s   = ~~(millis / 1000) % 60,
       m   = ~~(millis / (1000*60)) % 60,
