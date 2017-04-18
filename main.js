@@ -14,8 +14,8 @@ function createWindow() {
   win = new BrowserWindow({
     frame: false,
     resizable: false,
-    width: 320,
-    height: 600,
+    width: 400,
+    height: 700,
     backgroundColor: '#aaa',
     alwaysOnTop: true
   });

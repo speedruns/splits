@@ -1,17 +1,28 @@
 .segments {
   width: 100%;
-  padding: var(--box-padding);
+  padding: 0 var(--box-padding);
+  margin: var(--box-padding) 0;
+  display: table;
 
   .segment {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 6px 0;
-    border-bottom: 1px solid #999;
-
+    display: table-row;
 
     &:last-child {
-      border: none;
+      .table-cell { border: none; }
     }
+
+    .table-cell {
+      padding: 6px 0;
+      display: table-cell;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .time {
+      text-align: right;
+    }
+
+    .segment-name { width: 50%; }
+    .segment-time { width: 25%; }
+    .total-time   { width: 25%; }
   }
 }

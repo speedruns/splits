@@ -3,9 +3,9 @@
 <template id="segments_component">
   <div class="segments">
     <div rv-each-segment="run.segments" class="segment">
-      <span class="segment-name">{ segment.name }</span>
-      <span class="segment-time">{ segment.elapsed_time | time }</span>
-      <span class="total-time">{ segment.time_in_run < elapsed_time started_at | call | time }</span>
+      <span class="table-cell segment-name">{ segment.name }</span>
+      <span class="table-cell time segment-time">{ segment.elapsed_time | time }</span>
+      <span class="table-cell time total-time">{ segment.time_in_run < elapsed_time started_at | call | time }</span>
     </div>
   </div>
 </template>

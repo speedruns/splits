@@ -3,17 +3,5 @@
   padding: var(--box-padding);
   font-size: 1.2em;
   background-color: rgba(0,0,0,.1);
-
-  .segment {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 6px 0;
-    border-bottom: 1px solid #999;
-
-
-    &:last-child {
-      border: none;
-    }
-  }
+  line-height: 1.4em;
 }
