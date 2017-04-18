@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="../segments/segments.scss">
+
+<template>
+  <div class="best-segment">
+    <span class="best-seg">Best: { segment.best_time | time }</span>
+  </div>
+</template>
+
+<script>
+  var best_segment_template_str = document.currentScript.ownerDocument.querySelector('template').innerHTML;
+
+  rivets.components['best-segment'] = {
+    template: function() {
+      return best_segment_template_str;
+    },
+
+    initialize: function(el, data) {
+      return data || { run: { segments: [] } };
+    }
+  };
+</script>

@@ -1,8 +1,6 @@
-@import "variables.scss";
-
 .segments {
   width: 100%;
-  padding: $box-padding;
+  padding: var(--box-padding);
 
   .segment {
     display: flex;

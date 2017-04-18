@@ -1,8 +1,6 @@
-@import "variables.scss";
-
 .timer {
   width: 100%;
-  padding: $box-padding;
+  padding: var(--box-padding);
 
   .time {
     float: right;

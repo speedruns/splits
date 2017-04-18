@@ -8,13 +8,20 @@
 
     <script src="./formatters/time_formatters.js"></script>
     <link rel="stylesheet" href="./style/base.scss">
+
+    <script>
+      const {ComponentLoader} = require('../lib');
+      ComponentLoader.load(document, 'timer');
+      ComponentLoader.load(document, 'segments');
+      ComponentLoader.load(document, 'best_segment');
+    </script>
   </head>
 
   <body>
     <div id="wrap">
       <timer run="run"></timer>
       <segments run="run"></segments>
-      <best-time segment="run.current_segment"></best-time>
+      <best-segment segment="run.current_segment"></best-segment>
     </div>
   </body>
 
@@ -27,49 +34,7 @@
       run: new Run()
     };
 
-    rivets.components['timer'] = {
-      template: function() {
-        return '<div class="timer">\
-          <span class="time">{ run.timer.elapsed_time | time }</span>\
-          <div class="clear">\
-        </div>';
-      },
-
-      initialize: function(el, data) {
-        return data || { run: { timer: { elapsed_time: 0 } } };
-      }
-    };
-
-    rivets.components['segments'] = {
-      template: function() {
-        return '<div class="segments">\
-          <div rv-each-segment="run.segments" class="segment">\
-            <span class="segment-name">{ segment.name }</span>\
-            <span class="segment-time">{ segment.elapsed_time | time }</span>\
-            <span class="total-time">{ segment.time_in_run < elapsed_time started_at | call | time }</span>\
-          </div>\
-        </div>';
-      },
-
-      initialize: function(el, data) {
-        return data || { run: { segments: [] } };
-      }
-    };
-
-    rivets.components['best-time'] = {
-      template: function() {
-        return '<div class="segment-details">\
-          <span class="best-seg">Best: { segment.best_time | time }</span>\
-        </div>';
-      },
-
-      initialize: function(el, data) {
-        return data || { segment: { best_time: 0 } };
-      }
-    };
-
     let $view_bind = rivets.bind($('#wrap')[0], context);
-
 
 
 

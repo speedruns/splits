@@ -19,9 +19,9 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: $background-color;
-  font-family: $font-family;
-  color: $text-color;
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  color: var(--text-color);
   -webkit-app-region: drag;
 }
 
@@ -30,7 +30,3 @@ body {
   clear: both;
 }
 
-
-@import "timer.scss";
-@import "segments.scss";
-@import "segment_details.scss";

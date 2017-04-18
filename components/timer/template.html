@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="../timer/timer.scss">
+
+<template id="timer_component">
+  <div class="timer">
+    <span class="time">{ run.timer.elapsed_time | time }</span>
+    <div class="clear"></div>
+  </div>
+</template>
+
+<script>
+  var timer_template_str = document.currentScript.ownerDocument.querySelector('#timer_component').innerHTML;
+
+  rivets.components['timer'] = {
+    template: function() {
+      return timer_template_str;
+    },
+
+    initialize: function(el, data) {
+      return data || { run: { timer: { elapsed_time: 0 } } };
+    }
+  };
+</script>
