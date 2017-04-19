@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <div id="wrap">
+    <div id="layout">
       <run-title run="run"></run-title>
       <segments run="run"></segments>
       <timer run="run"></timer>
@@ -36,7 +36,7 @@
       run: new Run()
     };
 
-    let $view_bind = rivets.bind($('#wrap')[0], context);
+    let $view_bind = rivets.bind($('#layout')[0], context);
 
 
 

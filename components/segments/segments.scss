@@ -1,28 +1,39 @@
 .segments {
   width: 100%;
-  padding: 0 var(--box-padding);
   margin: var(--box-padding) 0;
-  display: table;
+  font-family: 'Museo Sans Rounded';
 
   .segment {
-    display: table-row;
+    padding: 8px var(--box-padding) 6px var(--box-padding);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    line-height: 1.2em;
 
     &:last-child {
-      .table-cell { border: none; }
+      border: none;
     }
 
-    .table-cell {
-      padding: 6px 0;
-      display: table-cell;
-      border-bottom: 1px solid var(--border-color);
+    &.active {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     .time {
       text-align: right;
+      font-family: var(--font-family);
+      font-size: var(--font-size);
     }
 
-    .segment-name { width: 50%; }
-    .segment-time { width: 25%; }
-    .total-time   { width: 25%; }
+    .segment-name {
+      flex: 1 1 50%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .segment-time {
+      flex: 0 1 100px;
+    }
+    .total-time {
+      flex: 0 1 120px;
+    }
   }
 }
