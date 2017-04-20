@@ -44,13 +44,16 @@
 
     let $view_bind = rivets.bind($('#layout')[0], context);
 
+    function debounced(func) {
+      return _.throttle(func, 200, { trailing: false });
+    }
 
-    Mousetrap.bind('space', function() { context.run.start_or_resume(); });
-    Mousetrap.bind('p', function() { context.run.pause(); });
-    Mousetrap.bind('s', function() { context.run.stop(); });
-    Mousetrap.bind('n', function() { context.run.split(); });
-    Mousetrap.bind('r', function() { context.run.reset(); });
-    Mousetrap.bind('m', function() { context.run.unsplit(); });
+    Mousetrap.bind('space', debounced(function() { context.run.start_or_resume(); }));
+    Mousetrap.bind('p',     debounced(function() { context.run.pause(); }));
+    Mousetrap.bind('s',     debounced(function() { context.run.stop(); }));
+    Mousetrap.bind('n',     debounced(function() { context.run.split(); }));
+    Mousetrap.bind('r',     debounced(function() { context.run.reset(); }));
+    Mousetrap.bind('m',     debounced(function() { context.run.unsplit(); }));
     Mousetrap.bind('mod+s', function() { FileIO.save_run(context.run); });
     Mousetrap.bind('mod+o', function() {
       let {new_run, run_file} = FileIO.open_run();
