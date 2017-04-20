@@ -30,14 +30,19 @@
   <script>
     const $ = document.querySelectorAll.bind(document);
 
+    const settings = require('electron').remote.require('electron-settings');
+
     const {Run, FileIO} = require('../lib');
 
+    let existing_run = settings.has('last_open_run') ?
+      FileIO.open_run(settings.get('last_open_run')).new_run :
+      new Run();
+
     let context = {
-      run: new Run()
+      run: existing_run
     };
 
     let $view_bind = rivets.bind($('#layout')[0], context);
-
 
 
     Mousetrap.bind('space', function() { context.run.start_or_resume(); });
@@ -48,7 +53,11 @@
     Mousetrap.bind('m', function() { context.run.unsplit(); });
     Mousetrap.bind('mod+s', function() { FileIO.save_run(context.run); });
     Mousetrap.bind('mod+o', function() {
-      context.run = FileIO.open_run();
+      let {new_run, run_file} = FileIO.open_run();
+      if(new_run) {
+        context.run = new_run;
+        settings.set('last_open_run', run_file);
+      }
     });
   </script>
 </html>

@@ -2,7 +2,9 @@
   "name": "splits",
   "version": "0.1.0",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "electron-settings": "^3.0.14"
+  },
   "devDependencies": {
     "electron-compile": "^6.3.0",
     "electron-compilers": "^5.7.0"

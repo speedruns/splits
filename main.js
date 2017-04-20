@@ -1,7 +1,9 @@
 const {app, BrowserWindow, globalShortcut, ipcMain} = require('electron');
-const path  = require('path');
-const url   = require('url');
-const appRoot = path.join(__dirname);
+const settings  = require('electron-settings');
+const path      = require('path');
+const url       = require('url');
+
+const appRoot   = path.join(__dirname);
 
 require('electron-compile').init(appRoot, require.resolve('./main'));
 
