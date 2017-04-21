@@ -31,6 +31,7 @@
     const $ = document.querySelectorAll.bind(document);
 
     const settings = require('electron').remote.require('electron-settings');
+    const win      = require('electron').remote.getCurrentWindow();
 
     const {Run, FileIO} = require('../lib');
 
@@ -46,7 +47,15 @@
 
     function debounced(func) {
       return _.throttle(func, 200, { trailing: false });
-    }
+    };
+
+    function scale_window_to_fit() {
+      let body = document.querySelector('body');
+      let body_style = getComputedStyle(body);
+      let width  = body.offsetWidth + parseInt(body_style.marginLeft) + parseInt(body_style.marginRight);
+      let height = body.offsetHeight + parseInt(body_style.marginTop) + parseInt(body_style.marginBottom);
+      win.setSize(width, height);
+    };
 
     Mousetrap.bind('space', debounced(function() { context.run.start_or_resume(); }));
     Mousetrap.bind('p',     debounced(function() { context.run.pause(); }));
@@ -62,6 +71,7 @@
         settings.set('last_open_run', run_file);
       }
     });
+    Mousetrap.bind('mod+b',     scale_window_to_fit);
   </script>
 </html>
 
