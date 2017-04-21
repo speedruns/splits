@@ -35,15 +35,9 @@
 
     const {Run, FileIO} = require('../lib');
 
-    let existing_run = settings.has('last_open_run') ?
-      FileIO.open_run(settings.get('last_open_run')).new_run :
-      new Run();
+    let context = {};
+    open_run(settings.get('last_open_run'));
 
-    let context = {
-      run: existing_run
-    };
-
-    let $view_bind = rivets.bind($('#layout')[0], context);
 
     function debounced(func) {
       return _.throttle(func, 200, { trailing: false });
@@ -55,6 +49,16 @@
       let width  = body.offsetWidth + parseInt(body_style.marginLeft) + parseInt(body_style.marginRight);
       let height = body.offsetHeight + parseInt(body_style.marginTop) + parseInt(body_style.marginBottom);
       win.setSize(width, height);
+      settings.set('width', width);
+      settings.set('height', height);
+    };
+
+    function open_run(run_to_open) {
+      let {new_run, run_file} = FileIO.open_run(run_to_open);
+      if(new_run) {
+        context.run = new_run;
+        settings.set('last_open_run', run_file);
+      }
     };
 
     Mousetrap.bind('space', debounced(function() { context.run.start_or_resume(); }));
@@ -64,14 +68,11 @@
     Mousetrap.bind('r',     debounced(function() { context.run.reset(); }));
     Mousetrap.bind('m',     debounced(function() { context.run.unsplit(); }));
     Mousetrap.bind('mod+s', function() { FileIO.save_run(context.run); });
-    Mousetrap.bind('mod+o', function() {
-      let {new_run, run_file} = FileIO.open_run();
-      if(new_run) {
-        context.run = new_run;
-        settings.set('last_open_run', run_file);
-      }
-    });
-    Mousetrap.bind('mod+b',     scale_window_to_fit);
+    Mousetrap.bind('mod+o', open_run);
+    Mousetrap.bind('mod+b', scale_window_to_fit);
+
+    let $view_bind = rivets.bind($('#layout')[0], context);
+    scale_window_to_fit();
   </script>
 </html>
 
