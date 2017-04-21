@@ -1,7 +1,21 @@
 .run-title {
+  position: relative;
   width: 100%;
   padding: var(--box-padding);
   font-size: 1.2em;
   background-color: rgba(0,0,0,.1);
   line-height: 1.4em;
+
+  .attempts {
+    position: absolute;
+    right: var(--box-padding);
+    bottom: var(--box-padding);
+    text-align: right;
+    font-size: calc(var(--font-size) * 0.8);
+    line-height: 1.2em;
+
+    .attempts-header {
+      display: block;
+    }
+  }
 }

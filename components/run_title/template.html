@@ -2,6 +2,12 @@
 
 <template id="title_component">
   <div class="run-title">
+    <div class="attempts">
+      <span class="attempts-header">Attempts</span>
+      <span class="attempts-completed">{ completed_attempts_count < run.attempts | call }</span>
+      /
+      <span class="attempts-total">{ attempts_count < run.attempts | call }</span>
+    </div>
     <div class="game-name">{ run.game }</div>
     <div class="category-name">{ run.category }</div>
     <div class="clear"></div>
@@ -11,13 +17,27 @@
 <script>
   var title_template_str = document.currentScript.ownerDocument.querySelector('#title_component').innerHTML;
 
+  class TitleComponent {
+    constructor(data) {
+      this.run = data.run;
+    };
+
+    attempts_count() {
+      return this.run.attempts.length;
+    };
+
+    completed_attempts_count() {
+      return this.run.attempts.filter(function(att) { return att.completed; }).length;
+    };
+  };
+
   rivets.components['run-title'] = {
     template: function() {
       return title_template_str;
     },
 
     initialize: function(el, data) {
-      return data;
+      return new TitleComponent(data);
     }
   };
 </script>
