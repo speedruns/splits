@@ -35,7 +35,9 @@
     };
 
     pb_segment_time(segment_idx) {
-      return this.run.pb_attempt.segments[segment_idx];
+      return this.run.pb_attempt ?
+        this.run.pb_attempt.segments[segment_idx] :
+        null;
     };
 
     is_active(segment) {
